@@ -1,98 +1,222 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import CTA from '../../components/CTA.astro';
-import { t } from '../../i18n/translations';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { projects } from '../../i18n/projects';
 
-const lang = 'de';
-const base = '/konstrukcje-wm-website';
-
-const services = [
-  { key: 'prefab', icon: '🏗️', path: '/de/leistungen/fertigteile' },
-  { key: 'rc', icon: '🏢', path: '/de/leistungen/stahlbeton' },
-  { key: 'prestressed', icon: '⚡', path: '/de/leistungen/spannbeton' },
-  { key: 'optimization', icon: '📐', path: '/de/leistungen/optimierung' },
-];
-
-const projects = [
-  { slug: 'kv-babord-malmo', name: 'Kv Babord, Malmö', country: 'SWE', image: 'babord/B1.jpg', area: '12.390 m²', type: 'Wohngebäude' },
-  { slug: 'ikea-kopenhaga', name: 'IKEA, Kopenhagen', country: 'DK', image: 'ikea/I1.jpg', area: '3.595 m²', type: 'Einkaufszentrum' },
-  { slug: 'formee-miedzyrzecz', name: 'Formee, Międzyrzecz', country: 'PL', image: 'formee/F1.jpg', area: '6.656 m²', type: 'Produktionshalle' },
-  { slug: 'sokolka-zielenisz-gdynia', name: 'Sokółka Zielenisz, Gdynia', country: 'PL', image: 'sokolka/H1.jpg', area: '26.086 m²', type: 'Wohnkomplex' },
-];
+const base = import.meta.env.BASE_URL;
 ---
 
-<Layout title="Planung von Fertigteilkonstruktionen" lang={lang}>
+<Layout title="Fertigteilkonstruktionen Planung | Konstrukcje WM" lang="de" description="Ingenieurbüro Konstrukcje WM — Planung von Stahlbeton- und Fertigteilkonstruktionen in Polen, Schweden, Dänemark und Deutschland.">
+  <Header slot="header" lang="de" />
+
   <section class="hero">
     <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-grid-pattern"></div>
     <div class="container hero-content">
-      <div class="hero-text">
-        <p class="hero-badge">Konstrukcje WM — Ingenieurbüro für Konstruktionen</p>
-        <h1>{t(lang, 'hero.title')} <span class="highlight">{t(lang, 'hero.titleHighlight')}</span></h1>
-        <p class="hero-subtitle">{t(lang, 'hero.subtitle')}</p>
-        <p class="hero-desc">{t(lang, 'hero.description')}</p>
-        <div class="hero-buttons">
-          <a href={`${base}/de/kontakt`} class="btn btn-accent">{t(lang, 'hero.cta')} →</a>
-          <a href={`${base}/de/projekte`} class="btn btn-secondary">{t(lang, 'hero.ctaSecondary')}</a>
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Ingenieurbüro · Gdańsk, Polen
+      </div>
+      <h1>
+        Ihre Investition<br/>könnte<br/>
+        <span class="gold">30% günstiger</span> sein.
+      </h1>
+      <p class="hero-subtitle">
+        Wir prüfen es kostenlos. Wir sind auf die Planung von Fertigteilkonstruktionen spezialisiert.
+        Wir optimieren Gebäude, verkürzen die Bauzeit und senken die Kosten — in Polen, Schweden, Dänemark und Deutschland.
+      </p>
+      <div class="hero-buttons">
+        <a href={`${base}de/kontakt`} class="btn-primary">Kostenlose Projektanalyse →</a>
+        <a href={`${base}de/projekte`} class="btn-secondary">Unsere Projekte</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">4</div>
+          <div class="hero-stat-label">Länder</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">50+</div>
+          <div class="hero-stat-label">Realisierte<br/>Projekte</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">BIM</div>
+          <div class="hero-stat-label">Planungs-<br/>technologie</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">3</div>
+          <div class="hero-stat-label">Dokumentations-<br/>sprachen</div>
         </div>
       </div>
-      <div class="hero-visual"><img src={`${base}/images/projects/ikea/I1.jpg`} alt="IKEA Kopenhagen" loading="eager" /></div>
     </div>
   </section>
 
-  <section class="numbers"><div class="container numbers-grid">
-    <div class="number-item observe"><span class="number-value">4</span><span class="number-label">{t(lang, 'numbers.countries')}</span></div>
-    <div class="number-item observe"><span class="number-value">50+</span><span class="number-label">{t(lang, 'numbers.projects')}</span></div>
-    <div class="number-item observe"><span class="number-value">100.000+</span><span class="number-label">{t(lang, 'numbers.area')}</span></div>
-    <div class="number-item observe"><span class="number-value">3</span><span class="number-label">{t(lang, 'numbers.languages')}</span></div>
-  </div></section>
-
-  <section class="ps-section section"><div class="container">
-    <div class="section-header"><h2>{t(lang, 'ps.title')}</h2></div>
-    <div class="ps-grid">
-      <div class="ps-card ps-problem observe"><div class="ps-icon">⚠️</div><h3>{t(lang, 'ps.problem.title')}</h3>
-        <ul><li>{t(lang, 'ps.problem.1')}</li><li>{t(lang, 'ps.problem.2')}</li><li>{t(lang, 'ps.problem.3')}</li><li>{t(lang, 'ps.problem.4')}</li></ul></div>
-      <div class="ps-arrow observe">→</div>
-      <div class="ps-card ps-solution observe"><div class="ps-icon">✅</div><h3>{t(lang, 'ps.solution.title')}</h3>
-        <ul><li>{t(lang, 'ps.solution.1')}</li><li>{t(lang, 'ps.solution.2')}</li><li>{t(lang, 'ps.solution.3')}</li><li>{t(lang, 'ps.solution.4')}</li></ul></div>
+  <section class="section about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image-wrapper observe">
+          <div class="about-image-accent"></div>
+          <img src={`${base}images/projects/ikea/budowa.jpg`} alt="Baustelle — Konstrukcje WM" class="about-image" />
+          <div class="about-image-accent-2"></div>
+        </div>
+        <div class="about-text observe">
+          <div class="section-label">Wir kennen Ihr Problem</div>
+          <h2 class="section-title">Ortbeton ist teuer<br/>und langsam?</h2>
+          <p>Monolithische Bauweise verlängert die Bauzeit und erhöht die Kosten. Sie wissen nicht, ob Fertigteile für Ihr Projekt funktionieren. Sie brauchen Dokumentation in einer Fremdsprache.</p>
+          <p><strong style="color: var(--gold)">Unsere Lösung:</strong> Wir wandeln Ortbeton in Fertigteile um — Sie sparen Zeit und Geld. Kostenlose Analyse — wir prüfen und sagen es direkt. Dokumentation in 3 Sprachen: PL, EN, DE.</p>
+          <div class="about-features">
+            <div class="about-feature">
+              <div class="about-feature-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+              </div>
+              Eurocode-Normen
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              PL · SE · DK · DE
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              BIM-Technologie
+            </div>
+          </div>
+          <div class="about-langs">
+            <span class="lang-badge">🇵🇱 Polski</span>
+            <span class="lang-badge">🇬🇧 English</span>
+            <span class="lang-badge">🇩🇪 Deutsch</span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div></section>
+  </section>
 
-  <section class="section" id="leistungen"><div class="container">
-    <div class="section-header"><h2>{t(lang, 'services.title')}</h2><p>{t(lang, 'services.subtitle')}</p></div>
-    <div class="grid-2">
-      {services.map(service => (
-        <a href={`${base}${service.path}`} class="card service-card observe">
-          <span class="service-icon">{service.icon}</span><h3>{t(lang, `services.${service.key}.title`)}</h3>
-          <p>{t(lang, `services.${service.key}.desc`)}</p><span class="service-link">{t(lang, 'services.learnMore')} →</span>
+  <section class="section services">
+    <div class="container">
+      <div class="section-header-center">
+        <div class="section-label">Leistungen</div>
+        <h2 class="section-title">Umfassende<br/>Planungsleistungen</h2>
+        <p class="section-desc">Von Fertigteilkonstruktionen bis zur Optimierung — volle Planungsunterstützung in jeder Projektphase.</p>
+      </div>
+      <div class="grid-2">
+        <a href={`${base}de/leistungen/fertigteile`} class="service-card observe">
+          <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+          <span class="service-number">01</span>
+          <h3>Fertigteilkonstruktionen</h3>
+          <p>Planung von Konstruktionselementen: Stützen, Balken, Fundamenten, Treppen, Wänden und Spannbetonträgern. .pxml und .uni Dateien für automatisierte Produktionslinien.</p>
         </a>
-      ))}
-    </div>
-  </div></section>
-
-  <section class="usp-section section"><div class="container">
-    <div class="section-header"><h2>Warum <span class="highlight">Konstrukcje WM</span>?</h2></div>
-    <div class="grid-3">
-      <div class="usp-item observe"><span class="usp-icon">🌍</span><h4>Internationale Erfahrung</h4><p>Projekte in Polen, Schweden, Dänemark und Deutschland.</p></div>
-      <div class="usp-item observe"><span class="usp-icon">⚙️</span><h4>Automatische Produktionsdateien</h4><p>.pxml- und .uni-Dateien für moderne automatische Produktionslinien.</p></div>
-      <div class="usp-item observe"><span class="usp-icon">📊</span><h4>BIM vom ersten Tag</h4><p>3D-Modelle mit allen Informationen für jede Investitionsphase.</p></div>
-      <div class="usp-item observe"><span class="usp-icon">📝</span><h4>Dokumentation in 3 Sprachen</h4><p>Polnisch, Englisch und Deutsch — keine Barrieren bei internationalen Projekten.</p></div>
-      <div class="usp-item observe"><span class="usp-icon">🔄</span><h4>Monolith → Fertigteil</h4><p>Umwandlung monolithischer in Fertigteilkonstruktionen — gleich effektiv, schneller, günstiger.</p></div>
-      <div class="usp-item observe"><span class="usp-icon">🏭</span><h4>Komplette Dokumentation</h4><p>Von technisch bis Werkstattplanung — Komplettpaket für Investoren, Architekten und Werke.</p></div>
-    </div>
-  </div></section>
-
-  <section class="section projects-section"><div class="container">
-    <div class="section-header"><h2>{t(lang, 'projects.title')}</h2><p>{t(lang, 'projects.subtitle')}</p></div>
-    <div class="grid-2">
-      {projects.map(project => (
-        <a href={`${base}/de/projekte/${project.slug}`} class="project-card observe">
-          <div class="project-image"><img src={`${base}/images/projects/${project.image}`} alt={project.name} loading="lazy" /><span class="project-country">{project.country}</span></div>
-          <div class="project-info"><h3>{project.name}</h3><div class="project-meta"><span>{project.type}</span><span class="project-area">{project.area}</span></div></div>
+        <a href={`${base}de/leistungen/stahlbeton`} class="service-card observe">
+          <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4"/></svg></div>
+          <span class="service-number">02</span>
+          <h3>Stahlbetonkonstruktionen</h3>
+          <p>Technische und Ausführungsplanung für alle Arten von Stahlbetonkonstruktionen. Umwandlung von monolithisch zu Fertigteilen unter voller Effizienz.</p>
         </a>
-      ))}
+        <a href={`${base}de/leistungen/spannbeton`} class="service-card observe">
+          <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <span class="service-number">03</span>
+          <h3>Spannbetonkonstruktionen</h3>
+          <p>Technologische Planungen und Spannprogramme für vorgespannte und vorgezogene Konstruktionen. Werkstattpläne für Spannbetonelemente.</p>
+        </a>
+        <a href={`${base}de/leistungen/optimierung`} class="service-card observe">
+          <div class="service-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg></div>
+          <span class="service-number">04</span>
+          <h3>Optimierung</h3>
+          <p>Wir wandeln monolithische Konstruktionen in Fertigteile um. Sparen Sie Bauzeit und -kosten bei voller Konstruktionseffizienz.</p>
+        </a>
+      </div>
     </div>
-    <div class="projects-cta"><a href={`${base}/de/projekte`} class="btn btn-secondary">{t(lang, 'projects.seeAll')} →</a></div>
-  </div></section>
+  </section>
 
-  <CTA lang={lang} />
+  <section class="section projects">
+    <div class="container">
+      <div class="section-label">Projekte</div>
+      <h2 class="section-title">Unsere Projekte</h2>
+      <p class="section-desc" style="margin-bottom: var(--space-3xl)">Wir realisieren anspruchsvolle Projekte in Polen, Schweden, Dänemark und Deutschland.</p>
+      <div class="grid-2">
+        {projects.map(project => (
+          <a href={`${base}de/projekte/${project.slug}`} class="project-card observe">
+            <div class="project-image-wrap">
+              <img src={`${base}images/projects/${project.images[0]}`} alt={project.data.de.name} loading="lazy" />
+              <div class="project-image-overlay"></div>
+              <span class="project-location">{project.flag} {project.country}</span>
+            </div>
+            <div class="project-info">
+              <h3>{project.data.de.name}</h3>
+              <p>{project.data.de.challenge}</p>
+              <div class="project-tags">
+                <span class="project-tag">{project.data.de.type}</span>
+                {project.data.de.stats[0] && <span class="project-tag">{project.data.de.stats[0].value}</span>}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta-section">
+    <div class="container">
+      <div class="section-label">Kontakt</div>
+      <h2 class="section-title">Sprechen wir über<br/>Ihr Projekt</h2>
+      <p class="section-desc" style="margin-bottom: var(--space-xl)">
+        Fordern Sie eine kostenlose Analyse an — wir prüfen, wie viel Sie mit Fertigteilen sparen können. Unverbindlich.
+      </p>
+      <div class="cta-buttons">
+        <a href={`${base}de/kontakt`} class="btn-primary">Kostenlose Projektanalyse →</a>
+        <a href="tel:+48791392370" class="btn-secondary">+48 791 392 370</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" lang="de" />
 </Layout>
+
+<style>
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:url('/konstrukcje-wm-website/images/projects/ikea/budowa.jpg') center/cover no-repeat;filter:brightness(.25);transform:scale(1.1)}
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,17,23,.85) 0%,rgba(13,17,23,.5) 50%,rgba(13,17,23,.7) 100%)}
+  .hero-grid-pattern{position:absolute;inset:0;background-image:linear-gradient(rgba(201,169,110,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,169,110,.03) 1px,transparent 1px);background-size:60px 60px}
+  .hero-content{position:relative;z-index:2;padding-top:120px;padding-bottom:80px}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.2);border-radius:100px;font-size:.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:32px;animation:fadeInUp 1s ease .2s both}
+  .hero-badge-dot{width:6px;height:6px;background:var(--gold);border-radius:50%}
+  .hero h1{font-family:var(--font-heading);font-size:clamp(3rem,7vw,5.5rem);font-weight:700;line-height:1.05;margin-bottom:24px;animation:fadeInUp 1s ease .4s both}
+  .hero h1 .gold{color:var(--gold)}
+  .hero-subtitle{font-size:1.15rem;color:var(--text-secondary);max-width:560px;line-height:1.7;margin-bottom:40px;animation:fadeInUp 1s ease .6s both}
+  .hero-buttons{display:flex;gap:16px;flex-wrap:wrap;animation:fadeInUp 1s ease .8s both}
+  .hero-stats{display:flex;gap:48px;margin-top:64px;padding-top:40px;border-top:1px solid rgba(201,169,110,.15);animation:fadeInUp 1s ease 1s both}
+  .hero-stat-value{font-family:var(--font-heading);font-size:2.2rem;font-weight:700;color:var(--gold)}
+  .hero-stat-label{font-size:.8rem;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-top:4px;line-height:1.4}
+  .about{background:var(--dark)}.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3xl);align-items:center}
+  .about-image-wrapper{position:relative}.about-image{width:100%;height:500px;object-fit:cover;border-radius:12px;filter:brightness(.9)}
+  .about-image-accent{position:absolute;top:-16px;left:-16px;width:120px;height:120px;border-left:3px solid var(--gold);border-top:3px solid var(--gold);border-radius:12px 0 0 0}
+  .about-image-accent-2{position:absolute;bottom:-16px;right:-16px;width:120px;height:120px;border-right:3px solid var(--gold);border-bottom:3px solid var(--gold);border-radius:0 0 12px 0}
+  .about-text p{color:var(--text-secondary);font-size:1rem;line-height:1.8;margin-bottom:16px}
+  .about-features{display:flex;flex-wrap:wrap;gap:16px;margin:24px 0}
+  .about-feature{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--text-secondary)}
+  .about-feature-icon{width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:rgba(201,169,110,.1);border-radius:6px;color:var(--gold);flex-shrink:0}
+  .about-langs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .lang-badge{padding:6px 16px;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.15);border-radius:100px;font-size:.8rem;color:var(--gold);font-weight:500}
+  .services{background:var(--dark-card)}
+  .service-card{display:block;background:var(--dark);border:1px solid var(--dark-border);border-radius:12px;padding:36px 28px;transition:.4s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;text-decoration:none}
+  .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient-gold);transform:scaleX(0);transition:transform .4s cubic-bezier(.16,1,.3,1);transform-origin:left}
+  .service-card:hover{border-color:rgba(201,169,110,.2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.3)}.service-card:hover::before{transform:scaleX(1)}
+  .service-icon{width:52px;height:52px;display:flex;align-items:center;justify-content:center;background:rgba(201,169,110,.1);border-radius:10px;margin-bottom:20px;color:var(--gold)}
+  .service-number{position:absolute;top:20px;right:24px;font-family:var(--font-heading);font-size:3rem;font-weight:700;color:rgba(201,169,110,.06);line-height:1}
+  .service-card h3{font-family:var(--font-heading);font-size:1.2rem;font-weight:600;margin-bottom:12px;color:var(--text-primary)}.service-card p{font-size:.9rem;color:var(--text-secondary);line-height:1.7}
+  .projects{background:var(--dark-card)}
+  .project-card{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--dark-border);background:var(--dark);transition:.4s;text-decoration:none}
+  .project-card:hover{border-color:rgba(201,169,110,.2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .project-image-wrap{position:relative;height:280px;overflow:hidden}.project-image-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .project-card:hover .project-image-wrap img{transform:scale(1.05)}
+  .project-image-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,17,23,.6) 0%,transparent 60%)}
+  .project-location{position:absolute;top:16px;right:16px;padding:4px 12px;background:rgba(13,17,23,.7);backdrop-filter:blur(10px);border-radius:100px;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,110,.2)}
+  .project-info{padding:24px}.project-info h3{font-family:var(--font-heading);font-size:1.25rem;font-weight:600;margin-bottom:8px}
+  .project-info p{font-size:.85rem;color:var(--text-secondary);line-height:1.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:16px}
+  .project-tags{display:flex;flex-wrap:wrap;gap:6px}.project-tag{padding:4px 12px;border:1px solid var(--dark-border);border-radius:100px;font-size:.7rem;color:var(--text-muted);letter-spacing:.5px}
+  .cta-section{background:var(--dark)}.cta-buttons{display:flex;gap:16px;flex-wrap:wrap}
+  @media(max-width:768px){.hero-stats{flex-wrap:wrap;gap:24px}.hero-stat{flex:0 0 calc(50% - 12px)}.about-grid{grid-template-columns:1fr}.about-image{height:300px}}
+</style>

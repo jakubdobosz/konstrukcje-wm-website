@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import CTA from '../../components/CTA.astro';
-import { t } from '../../i18n/translations';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 import { projects } from '../../i18n/projects';
 
 export function getStaticPaths() {
@@ -13,14 +13,16 @@ export function getStaticPaths() {
 
 const { project } = Astro.props;
 const lang = 'pl';
-const base = '/konstrukcje-wm-website';
+const base = import.meta.env.BASE_URL;
 const data = project.data[lang];
 ---
 
-<Layout title={data.name} lang={lang}>
+<Layout title={`${data.name} — Konstrukcje WM`} lang={lang}>
+  <Header slot="header" lang="pl" />
+
   <section class="project-hero">
     <div class="container">
-      <a href={`${base}/realizacje`} class="back-link">{t(lang, 'projects.back')}</a>
+      <a href={`${base}realizacje`} class="back-link">← Wszystkie realizacje</a>
       <div class="project-hero-content">
         <div>
           <span class="project-badge">{project.flag} {project.country}</span>
@@ -39,47 +41,51 @@ const data = project.data[lang];
     </div>
   </section>
 
-  <!-- Image Gallery -->
   <section class="gallery-section">
     <div class="container">
       <div class="gallery-main">
-        <img id="main-image" src={`${base}/images/projects/${project.images[0]}`} alt={data.name} />
+        <img id="main-image" src={`${base}images/projects/${project.images[0]}`} alt={data.name} />
       </div>
       <div class="gallery-thumbs">
         {project.images.map((img, i) => (
-          <button class:list={['thumb', { active: i === 0 }]} data-src={`${base}/images/projects/${img}`}>
-            <img src={`${base}/images/projects/${img}`} alt={`${data.name} ${i + 1}`} loading="lazy" />
+          <button class:list={['thumb', { active: i === 0 }]} data-src={`${base}images/projects/${img}`}>
+            <img src={`${base}images/projects/${img}`} alt={`${data.name} ${i + 1}`} loading="lazy" />
           </button>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Case Study: Challenge → Approach → Result -->
   <section class="section">
     <div class="container case-study">
       <div class="case-item observe">
-        <div class="case-icon challenge-icon">⚡</div>
-        <h2>{t(lang, 'projects.challenge')}</h2>
+        <div class="case-label">
+          <span class="case-num">01</span>
+          Wyzwanie
+        </div>
         <p>{data.challenge}</p>
       </div>
       <div class="case-item observe">
-        <div class="case-icon approach-icon">🔧</div>
-        <h2>{t(lang, 'projects.approach')}</h2>
+        <div class="case-label">
+          <span class="case-num">02</span>
+          Nasze podejście
+        </div>
         <p>{data.approach}</p>
       </div>
       <div class="case-item observe">
-        <div class="case-icon result-icon">✅</div>
-        <h2>{t(lang, 'projects.result')}</h2>
+        <div class="case-label">
+          <span class="case-num">03</span>
+          Rezultat
+        </div>
         <p>{data.result}</p>
       </div>
     </div>
   </section>
 
-  <!-- Scope -->
   <section class="scope-section">
     <div class="container">
-      <h2>{t(lang, 'projects.scope')}</h2>
+      <div class="section-label">Zakres prac</div>
+      <h2 class="section-title" style="margin-bottom: var(--space-xl)">Co zrobiliśmy</h2>
       <div class="scope-grid">
         {data.scope.map(item => (
           <div class="scope-item observe">
@@ -91,16 +97,29 @@ const data = project.data[lang];
     </div>
   </section>
 
-  <CTA lang={lang} />
+  <section class="section cta-section">
+    <div class="container">
+      <div class="section-label">Kontakt</div>
+      <h2 class="section-title">Masz podobny projekt?</h2>
+      <p class="section-desc" style="margin-bottom: var(--space-xl)">
+        Zamów bezpłatną analizę — sprawdzimy, ile możesz zaoszczędzić dzięki prefabrykacji.
+      </p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href={`${base}kontakt`} class="btn-primary">Bezpłatna analiza projektu →</a>
+        <a href="tel:+48791392370" class="btn-secondary">+48 791 392 370</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" lang="pl" />
 </Layout>
 
 <script>
-  // Simple gallery interaction
   document.querySelectorAll('.thumb').forEach(thumb => {
     thumb.addEventListener('click', () => {
       const mainImage = document.getElementById('main-image') as HTMLImageElement;
-      if (mainImage && thumb.dataset.src) {
-        mainImage.src = thumb.dataset.src;
+      if (mainImage && (thumb as HTMLElement).dataset.src) {
+        mainImage.src = (thumb as HTMLElement).dataset.src!;
         document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
         thumb.classList.add('active');
       }
@@ -109,207 +128,33 @@ const data = project.data[lang];
 </script>
 
 <style>
-  .project-hero {
-    padding: calc(72px + var(--space-3xl)) 0 var(--space-2xl);
-    background: var(--color-bg-secondary);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .back-link {
-    display: inline-block;
-    color: var(--color-text-muted);
-    font-size: 0.85rem;
-    margin-bottom: var(--space-xl);
-    text-decoration: none;
-  }
-
-  .back-link:hover {
-    color: var(--color-primary-light);
-  }
-
-  .project-hero-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: var(--space-xl);
-  }
-
-  .project-badge {
-    display: inline-block;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    padding: 0.3rem 0.75rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.8rem;
-    margin-bottom: var(--space-md);
-  }
-
-  .project-hero h1 {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    margin-bottom: var(--space-xs);
-  }
-
-  .project-type {
-    color: var(--color-text-secondary);
-    font-size: 1rem;
-  }
-
-  .project-stats-bar {
-    display: flex;
-    gap: var(--space-xl);
-  }
-
-  .stat-item {
-    text-align: right;
-  }
-
-  .stat-val {
-    display: block;
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--color-primary-light);
-  }
-
-  .stat-lbl {
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-  }
-
-  /* Gallery */
-  .gallery-section {
-    padding: var(--space-2xl) 0;
-  }
-
-  .gallery-main {
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    margin-bottom: var(--space-md);
-    border: 1px solid var(--color-border);
-  }
-
-  .gallery-main img {
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-    transition: opacity var(--transition-base);
-  }
-
-  .gallery-thumbs {
-    display: flex;
-    gap: var(--space-sm);
-    overflow-x: auto;
-    padding-bottom: var(--space-sm);
-  }
-
-  .thumb {
-    flex-shrink: 0;
-    width: 100px;
-    height: 70px;
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    cursor: pointer;
-    border: 2px solid transparent;
-    opacity: 0.6;
-    transition: all var(--transition-fast);
-    padding: 0;
-    background: none;
-  }
-
-  .thumb:hover, .thumb.active {
-    opacity: 1;
-    border-color: var(--color-primary);
-  }
-
-  .thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* Case Study */
-  .case-study {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-xl);
-  }
-
-  .case-item {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl);
-  }
-
-  .case-icon {
-    font-size: 2rem;
-    margin-bottom: var(--space-md);
-  }
-
-  .case-item h2 {
-    font-size: 1.2rem;
-    margin-bottom: var(--space-md);
-  }
-
-  .case-item p {
-    color: var(--color-text-secondary);
-    line-height: 1.8;
-  }
-
-  /* Scope */
-  .scope-section {
-    background: var(--color-bg-secondary);
-    padding: var(--space-3xl) 0;
-  }
-
-  .scope-section h2 {
-    margin-bottom: var(--space-xl);
-    text-align: center;
-  }
-
-  .scope-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-md);
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .scope-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-md);
-    background: var(--color-bg-card);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-  }
-
-  .scope-check {
-    color: var(--color-success);
-    font-weight: bold;
-    font-size: 1.1rem;
-  }
-
-  @media (max-width: 768px) {
-    .project-hero-content {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .project-stats-bar {
-      flex-wrap: wrap;
-    }
-
-    .stat-item {
-      text-align: left;
-    }
-
-    .case-study {
-      grid-template-columns: 1fr;
-    }
-
-    .gallery-main img {
-      height: 300px;
-    }
-  }
+  .project-hero{padding:140px 0 40px;background:var(--dark-card);border-bottom:1px solid var(--dark-border)}
+  .back-link{display:inline-block;color:var(--text-muted);font-size:.85rem;margin-bottom:var(--space-xl);text-decoration:none;transition:color .2s}
+  .back-link:hover{color:var(--gold)}
+  .project-hero-content{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--space-xl)}
+  .project-badge{display:inline-block;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.2);padding:.3rem .75rem;border-radius:100px;font-size:.8rem;margin-bottom:var(--space-md);color:var(--gold);font-weight:600;letter-spacing:1px}
+  .project-hero h1{font-family:var(--font-heading);font-size:clamp(1.75rem,4vw,2.5rem);margin-bottom:var(--space-xs)}
+  .project-type{color:var(--text-secondary);font-size:1rem}
+  .project-stats-bar{display:flex;gap:var(--space-xl)}
+  .stat-item{text-align:right}
+  .stat-val{display:block;font-family:var(--font-heading);font-size:1.25rem;font-weight:700;color:var(--gold)}
+  .stat-lbl{font-size:.75rem;color:var(--text-muted)}
+  .gallery-section{padding:var(--space-2xl) 0}
+  .gallery-main{border-radius:12px;overflow:hidden;margin-bottom:var(--space-md);border:1px solid var(--dark-border)}
+  .gallery-main img{width:100%;height:500px;object-fit:cover;transition:opacity .3s}
+  .gallery-thumbs{display:flex;gap:var(--space-sm);overflow-x:auto;padding-bottom:var(--space-sm)}
+  .thumb{flex-shrink:0;width:100px;height:70px;border-radius:6px;overflow:hidden;cursor:pointer;border:2px solid transparent;opacity:.5;transition:.3s;padding:0;background:none}
+  .thumb:hover,.thumb.active{opacity:1;border-color:var(--gold)}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .case-study{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-xl)}
+  .case-item{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:12px;padding:var(--space-xl)}
+  .case-label{display:flex;align-items:center;gap:12px;font-family:var(--font-heading);font-size:1.15rem;font-weight:600;margin-bottom:var(--space-md);color:var(--text-primary)}
+  .case-num{font-family:var(--font-heading);font-size:1.5rem;color:var(--gold);font-weight:700}
+  .case-item p{color:var(--text-secondary);line-height:1.8;font-size:.95rem}
+  .scope-section{background:var(--dark-card);padding:var(--space-3xl) 0}
+  .scope-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:var(--space-md);max-width:800px}
+  .scope-item{display:flex;align-items:center;gap:var(--space-md);padding:var(--space-md);background:var(--dark);border-radius:10px;border:1px solid var(--dark-border);font-size:.9rem;color:var(--text-secondary)}
+  .scope-check{color:var(--gold);font-weight:bold;font-size:1.1rem}
+  .cta-section{background:var(--dark)}
+  @media(max-width:768px){.project-hero-content{flex-direction:column;align-items:flex-start}.project-stats-bar{flex-wrap:wrap}.stat-item{text-align:left}.case-study{grid-template-columns:1fr}.gallery-main img{height:300px}}
 </style>

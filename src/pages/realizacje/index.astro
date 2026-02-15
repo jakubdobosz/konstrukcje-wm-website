@@ -1,171 +1,59 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import CTA from '../../components/CTA.astro';
-import { t } from '../../i18n/translations';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
 import { projects } from '../../i18n/projects';
 
-const lang = 'pl';
-const base = '/konstrukcje-wm-website';
+const base = import.meta.env.BASE_URL;
 ---
 
-<Layout title="Realizacje" lang={lang}>
+<Layout title="Realizacje — Konstrukcje WM" lang="pl">
+  <Header slot="header" lang="pl" />
+
   <section class="page-hero">
     <div class="container">
-      <h1>{t(lang, 'projects.title')}</h1>
-      <p>{t(lang, 'projects.subtitle')}</p>
+      <div class="section-label">Realizacje</div>
+      <h1 class="section-title">Nasze projekty</h1>
+      <p class="section-desc">Realizujemy wymagające projekty na terenie Polski, Szwecji, Danii oraz Niemiec.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <div class="projects-grid">
-        {projects.map((project) => {
-          const data = project.data[lang];
-          return (
-            <a href={`${base}/realizacje/${project.slug}`} class="project-card observe">
-              <div class="project-image">
-                <img src={`${base}/images/projects/${project.images[0]}`} alt={data.name} loading="lazy" />
-                <span class="project-badge">{project.flag} {project.country}</span>
+      <div class="grid-2">
+        {projects.map(project => (
+          <a href={`${base}realizacje/${project.slug}`} class="project-card observe">
+            <div class="project-image-wrap">
+              <img src={`${base}images/projects/${project.images[0]}`} alt={project.data.pl.name} loading="lazy" />
+              <div class="project-image-overlay"></div>
+              <span class="project-location">{project.flag} {project.country}</span>
+            </div>
+            <div class="project-info">
+              <h3>{project.data.pl.name}</h3>
+              <p>{project.data.pl.challenge}</p>
+              <div class="project-tags">
+                <span class="project-tag">{project.data.pl.type}</span>
+                {project.data.pl.stats[0] && <span class="project-tag">{project.data.pl.stats[0].value}</span>}
               </div>
-              <div class="project-body">
-                <h3>{data.name}</h3>
-                <p class="project-type">{data.type}</p>
-                <div class="project-stats">
-                  {data.stats.slice(0, 2).map(stat => (
-                    <div class="stat">
-                      <span class="stat-value">{stat.value}</span>
-                      <span class="stat-label">{stat.label}</span>
-                    </div>
-                  ))}
-                </div>
-                <span class="project-link">{t(lang, 'projects.seeDetails')} →</span>
-              </div>
-            </a>
-          );
-        })}
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   </section>
 
-  <CTA lang={lang} />
+  <Footer slot="footer" lang="pl" />
 </Layout>
 
 <style>
-  .page-hero {
-    padding: calc(72px + var(--space-4xl)) 0 var(--space-3xl);
-    background: var(--color-bg-secondary);
-    border-bottom: 1px solid var(--color-border);
-    text-align: center;
-  }
-
-  .page-hero h1 {
-    margin-bottom: var(--space-md);
-  }
-
-  .page-hero p {
-    color: var(--color-text-secondary);
-    font-size: 1.15rem;
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: var(--space-xl);
-  }
-
-  .project-card {
-    display: block;
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    text-decoration: none;
-    color: var(--color-text);
-    transition: all var(--transition-base);
-  }
-
-  .project-card:hover {
-    border-color: var(--color-primary);
-    transform: translateY(-6px);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
-    color: var(--color-text);
-  }
-
-  .project-image {
-    position: relative;
-    height: 220px;
-    overflow: hidden;
-  }
-
-  .project-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform var(--transition-slow);
-  }
-
-  .project-card:hover .project-image img {
-    transform: scale(1.05);
-  }
-
-  .project-badge {
-    position: absolute;
-    top: var(--space-md);
-    left: var(--space-md);
-    background: rgba(10, 14, 23, 0.85);
-    backdrop-filter: blur(8px);
-    padding: 0.3rem 0.75rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
-  }
-
-  .project-body {
-    padding: var(--space-lg);
-  }
-
-  .project-body h3 {
-    font-size: 1.2rem;
-    margin-bottom: var(--space-xs);
-  }
-
-  .project-type {
-    color: var(--color-text-muted);
-    font-size: 0.85rem;
-    margin-bottom: var(--space-lg);
-  }
-
-  .project-stats {
-    display: flex;
-    gap: var(--space-xl);
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .stat-value {
-    display: block;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--color-primary-light);
-  }
-
-  .stat-label {
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-  }
-
-  .project-link {
-    color: var(--color-primary-light);
-    font-weight: 600;
-    font-size: 0.9rem;
-  }
-
-  @media (max-width: 768px) {
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+  .page-hero{padding:160px 0 40px;background:var(--dark)}
+  .project-card{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--dark-border);background:var(--dark-card);transition:.4s;text-decoration:none}
+  .project-card:hover{border-color:rgba(201,169,110,.2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .project-image-wrap{position:relative;height:280px;overflow:hidden}.project-image-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .project-card:hover .project-image-wrap img{transform:scale(1.05)}
+  .project-image-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,17,23,.6) 0%,transparent 60%)}
+  .project-location{position:absolute;top:16px;right:16px;padding:4px 12px;background:rgba(13,17,23,.7);backdrop-filter:blur(10px);border-radius:100px;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,110,.2)}
+  .project-info{padding:24px}.project-info h3{font-family:var(--font-heading);font-size:1.25rem;font-weight:600;margin-bottom:8px}
+  .project-info p{font-size:.85rem;color:var(--text-secondary);line-height:1.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:16px}
+  .project-tags{display:flex;flex-wrap:wrap;gap:6px}.project-tag{padding:4px 12px;border:1px solid var(--dark-border);border-radius:100px;font-size:.7rem;color:var(--text-muted)}
 </style>

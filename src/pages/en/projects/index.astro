@@ -1,27 +1,38 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import CTA from '../../../components/CTA.astro';
-import { t } from '../../../i18n/translations';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
 import { projects } from '../../../i18n/projects';
-
-const lang = 'en';
-const base = '/konstrukcje-wm-website';
+const base = import.meta.env.BASE_URL;
 ---
-
-<Layout title="Projects" lang={lang}>
-  <section class="page-hero"><div class="container"><h1>{t(lang, 'projects.title')}</h1><p>{t(lang, 'projects.subtitle')}</p></div></section>
-  <section class="section"><div class="container"><div class="projects-grid">
-    {projects.map((project) => {
-      const data = project.data[lang];
-      return (
-        <a href={`${base}/en/projects/${project.slug}`} class="project-card observe">
-          <div class="project-image"><img src={`${base}/images/projects/${project.images[0]}`} alt={data.name} loading="lazy" /><span class="project-badge">{project.flag} {project.country}</span></div>
-          <div class="project-body"><h3>{data.name}</h3><p class="project-type">{data.type}</p>
-            <div class="project-stats">{data.stats.slice(0, 2).map(stat => (<div class="stat"><span class="stat-value">{stat.value}</span><span class="stat-label">{stat.label}</span></div>))}</div>
-            <span class="project-link">{t(lang, 'projects.seeDetails')} →</span></div>
-        </a>
-      );
-    })}
+<Layout title="Projects — Konstrukcje WM" lang="en">
+  <Header slot="header" lang="en" />
+  <section class="page-hero"><div class="container">
+    <div class="section-label">Projects</div>
+    <h1 class="section-title">Our projects</h1>
+    <p class="section-desc">We deliver demanding projects across Poland, Sweden, Denmark and Germany.</p>
+  </div></section>
+  <section class="section"><div class="container"><div class="grid-2">
+    {projects.map(project => (
+      <a href={`${base}en/projects/${project.slug}`} class="project-card observe">
+        <div class="project-image-wrap"><img src={`${base}images/projects/${project.images[0]}`} alt={project.data.en.name} loading="lazy" /><div class="project-image-overlay"></div><span class="project-location">{project.flag} {project.country}</span></div>
+        <div class="project-info"><h3>{project.data.en.name}</h3><p>{project.data.en.challenge}</p>
+          <div class="project-tags"><span class="project-tag">{project.data.en.type}</span>{project.data.en.stats[0] && <span class="project-tag">{project.data.en.stats[0].value}</span>}</div>
+        </div>
+      </a>
+    ))}
   </div></div></section>
-  <CTA lang={lang} />
+  <Footer slot="footer" lang="en" />
 </Layout>
+<style>
+  .page-hero{padding:160px 0 40px;background:var(--dark)}
+  .project-card{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--dark-border);background:var(--dark-card);transition:.4s;text-decoration:none}
+  .project-card:hover{border-color:rgba(201,169,110,.2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .project-image-wrap{position:relative;height:280px;overflow:hidden}.project-image-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .project-card:hover .project-image-wrap img{transform:scale(1.05)}
+  .project-image-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,17,23,.6) 0%,transparent 60%)}
+  .project-location{position:absolute;top:16px;right:16px;padding:4px 12px;background:rgba(13,17,23,.7);backdrop-filter:blur(10px);border-radius:100px;font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,110,.2)}
+  .project-info{padding:24px}.project-info h3{font-family:var(--font-heading);font-size:1.25rem;font-weight:600;margin-bottom:8px}
+  .project-info p{font-size:.85rem;color:var(--text-secondary);line-height:1.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:16px}
+  .project-tags{display:flex;flex-wrap:wrap;gap:6px}.project-tag{padding:4px 12px;border:1px solid var(--dark-border);border-radius:100px;font-size:.7rem;color:var(--text-muted)}
+</style>

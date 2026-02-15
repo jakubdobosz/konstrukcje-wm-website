@@ -1,61 +1,37 @@
 ---
-import { t } from '../i18n/translations';
-import type { Lang } from '../i18n/translations';
-
 interface Props {
-  lang: Lang;
-  title?: string;
-  subtitle?: string;
+  lang?: string;
 }
 
-const { lang, title, subtitle } = Astro.props;
-const base = '/konstrukcje-wm-website';
-const contactPath = lang === 'pl' ? '/kontakt' : lang === 'en' ? '/en/contact' : '/de/kontakt';
+const { lang = 'pl' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const t = {
+  pl: { label: 'Kontakt', title: 'Zamów bezpłatną analizę projektu', desc: 'Sprawdzimy, ile możesz zaoszczędzić dzięki prefabrykacji. Bez zobowiązań.', btn: 'Bezpłatna analiza →', link: `${base}kontakt` },
+  en: { label: 'Contact', title: 'Request a free project analysis', desc: "We'll check how much you can save with prefabrication. No strings attached.", btn: 'Free analysis →', link: `${base}en/contact` },
+  de: { label: 'Kontakt', title: 'Kostenlose Projektanalyse anfordern', desc: 'Wir prüfen, wie viel Sie mit Fertigteilen sparen können. Unverbindlich.', btn: 'Kostenlose Analyse →', link: `${base}de/kontakt` },
+};
+
+const tr = t[lang] || t.pl;
 ---
 
 <section class="cta-section">
   <div class="container">
     <div class="cta-box">
       <div class="cta-content">
-        <h2>{title || t(lang, 'cta.title')}</h2>
-        <p>{subtitle || t(lang, 'cta.subtitle')}</p>
+        <div class="section-label">{tr.label}</div>
+        <h2>{tr.title}</h2>
+        <p>{tr.desc}</p>
       </div>
-      <a href={`${base}${contactPath}`} class="btn btn-accent">{t(lang, 'cta.button')} →</a>
+      <a href={tr.link} class="btn-primary">{tr.btn}</a>
     </div>
   </div>
 </section>
 
 <style>
-  .cta-section {
-    padding: var(--space-4xl) 0;
-  }
-
-  .cta-box {
-    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(59, 130, 246, 0.1) 100%);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    padding: var(--space-3xl);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-xl);
-  }
-
-  .cta-content h2 {
-    font-size: 1.75rem;
-    margin-bottom: var(--space-sm);
-  }
-
-  .cta-content p {
-    color: var(--color-text-secondary);
-    font-size: 1.05rem;
-  }
-
-  @media (max-width: 768px) {
-    .cta-box {
-      flex-direction: column;
-      text-align: center;
-      padding: var(--space-xl);
-    }
-  }
+  .cta-section{padding:var(--space-4xl, 96px) 0}
+  .cta-box{background:var(--dark-card, #161B22);border:1px solid var(--dark-border, #2D333B);border-radius:12px;padding:48px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+  .cta-content h2{font-family:var(--font-heading, 'Playfair Display', serif);font-size:1.75rem;margin-bottom:8px}
+  .cta-content p{color:var(--text-secondary, #8B949E);font-size:1.05rem}
+  @media(max-width:768px){.cta-box{flex-direction:column;text-align:center;padding:32px}}
 </style>

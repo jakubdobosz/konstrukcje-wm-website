@@ -1,233 +1,125 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { t } from '../i18n/translations';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-const lang = 'pl';
-const base = '/konstrukcje-wm-website';
+const base = import.meta.env.BASE_URL;
 ---
 
-<Layout title="Kontakt" lang={lang}>
-  <section class="contact-hero">
+<Layout title="Kontakt — Bezpłatna analiza projektu | Konstrukcje WM" lang="pl">
+  <Header slot="header" lang="pl" />
+
+  <section class="page-hero">
     <div class="container">
-      <h1>{t(lang, 'contact.title')}</h1>
-      <p>{t(lang, 'contact.subtitle')}</p>
+      <div class="section-label">Kontakt</div>
+      <h1 class="section-title">Porozmawiajmy<br/>o Twoim projekcie</h1>
+      <p class="section-desc">Zamów bezpłatną analizę — sprawdzimy, ile możesz zaoszczędzić dzięki prefabrykacji. Bez zobowiązań.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container contact-grid">
-      <div class="contact-form-wrap">
-        <form class="contact-form" id="contact-form">
+      <div class="contact-form-wrap observe">
+        <h2>Bezpłatna analiza projektu</h2>
+        <p class="form-desc">Wypełnij formularz, a skontaktujemy się w ciągu 24h.</p>
+        <form class="contact-form" action="https://formspree.io/f/biuro@konstrukcje-wm.pl" method="POST">
           <div class="form-group">
-            <label for="name">{t(lang, 'contact.name')} *</label>
+            <label for="name">Imię i nazwisko</label>
             <input type="text" id="name" name="name" required />
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="email">{t(lang, 'contact.email')} *</label>
-              <input type="email" id="email" name="email" required />
-            </div>
-            <div class="form-group">
-              <label for="phone">{t(lang, 'contact.phone')}</label>
-              <input type="tel" id="phone" name="phone" />
-            </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
           </div>
           <div class="form-group">
-            <label for="message">{t(lang, 'contact.message')} *</label>
-            <textarea id="message" name="message" rows="6" required></textarea>
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone" />
           </div>
-          <div class="form-group consent">
-            <label>
-              <input type="checkbox" name="consent" required />
-              <span>{t(lang, 'contact.consent')} *</span>
-            </label>
+          <div class="form-group">
+            <label for="message">Opis projektu</label>
+            <textarea id="message" name="message" rows="5" placeholder="Typ budynku, lokalizacja, szacowana powierzchnia, pytania..."></textarea>
           </div>
-          <button type="submit" class="btn btn-accent">{t(lang, 'contact.submit')} →</button>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Wyślij zapytanie →</button>
         </form>
       </div>
 
-      <div class="contact-info">
-        <h2>{t(lang, 'contact.direct')}</h2>
-
+      <div class="contact-info observe">
         <div class="info-card">
-          <h3>Mariusz Melloch</h3>
-          <div class="info-items">
-            <a href="tel:+48791392370" class="info-item">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
-              <span>+48 791 392 370</span>
-            </a>
-            <a href="mailto:biuro@konstrukcje-wm.pl" class="info-item">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
-              <span>biuro@konstrukcje-wm.pl</span>
-            </a>
-            <div class="info-item">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <h3>Dane kontaktowe</h3>
+          <div class="info-item">
+            <span class="info-icon">📞</span>
+            <div>
+              <span class="info-label">Telefon</span>
+              <a href="tel:+48791392370">+48 791 392 370</a>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">✉️</span>
+            <div>
+              <span class="info-label">Email</span>
+              <a href="mailto:biuro@konstrukcje-wm.pl">biuro@konstrukcje-wm.pl</a>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">📍</span>
+            <div>
+              <span class="info-label">Adres</span>
               <span>ul. Sarnia 6, 80-336 Gdańsk</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">👤</span>
+            <div>
+              <span class="info-label">Osoba kontaktowa</span>
+              <span>Mariusz Melloch</span>
             </div>
           </div>
         </div>
 
-        <div class="company-info">
-          <p><strong>Pracownia Projektowa Konstrukcje WM</strong></p>
-          <p>Mariusz Melloch</p>
-          <p>NIP: 5842627831</p>
-          <p>REGON: 381566723</p>
+        <div class="info-card">
+          <h3>Dane firmy</h3>
+          <p>Pracownia Projektowa<br/>Konstrukcje WM</p>
+          <p class="muted">NIP: 5842627831<br/>REGON: 381566723</p>
+        </div>
+
+        <div class="info-card">
+          <h3>Języki dokumentacji</h3>
+          <div class="lang-badges">
+            <span class="lang-badge">🇵🇱 Polski</span>
+            <span class="lang-badge">🇬🇧 English</span>
+            <span class="lang-badge">🇩🇪 Deutsch</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <Footer slot="footer" lang="pl" />
 </Layout>
 
-<script>
-  const form = document.getElementById('contact-form');
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const formData = new FormData(form as HTMLFormElement);
-    const data = Object.fromEntries(formData);
-    // In production, this would send to an API
-    alert('Dziękujemy za wiadomość! Skontaktujemy się wkrótce.');
-    (form as HTMLFormElement).reset();
-  });
-</script>
-
 <style>
-  .contact-hero {
-    padding: calc(72px + var(--space-4xl)) 0 var(--space-3xl);
-    background: var(--color-bg-secondary);
-    border-bottom: 1px solid var(--color-border);
-    text-align: center;
-  }
-
-  .contact-hero h1 {
-    margin-bottom: var(--space-md);
-  }
-
-  .contact-hero p {
-    color: var(--color-text-secondary);
-    font-size: 1.15rem;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: var(--space-3xl);
-    align-items: start;
-  }
-
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-lg);
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-
-  .form-group label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--color-text-secondary);
-  }
-
-  .form-group input,
-  .form-group textarea {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: 0.75rem 1rem;
-    color: var(--color-text);
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    transition: border-color var(--transition-fast);
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--color-primary-glow);
-  }
-
-  .consent label {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-sm);
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
-    cursor: pointer;
-  }
-
-  .consent input[type="checkbox"] {
-    margin-top: 2px;
-    width: auto;
-  }
-
-  .contact-info h2 {
-    font-size: 1.25rem;
-    margin-bottom: var(--space-xl);
-  }
-
-  .info-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl);
-    margin-bottom: var(--space-xl);
-  }
-
-  .info-card h3 {
-    font-size: 1.1rem;
-    margin-bottom: var(--space-lg);
-  }
-
-  .info-items {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-  }
-
-  .info-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    transition: color var(--transition-fast);
-  }
-
-  .info-item:hover {
-    color: var(--color-primary-light);
-  }
-
-  .info-item svg {
-    color: var(--color-primary);
-    flex-shrink: 0;
-  }
-
-  .company-info {
-    color: var(--color-text-muted);
-    font-size: 0.85rem;
-    line-height: 1.8;
-  }
-
-  @media (max-width: 768px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .form-row {
-      grid-template-columns: 1fr;
-    }
-  }
+  .page-hero{padding:160px 0 40px;background:var(--dark)}
+  .contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:var(--space-3xl);align-items:start}
+  .contact-form-wrap h2{font-family:var(--font-heading);font-size:1.5rem;margin-bottom:8px}
+  .form-desc{color:var(--text-secondary);margin-bottom:var(--space-xl);font-size:.95rem}
+  .contact-form{display:flex;flex-direction:column;gap:var(--space-md)}
+  .form-group{display:flex;flex-direction:column;gap:6px}
+  .form-group label{font-size:.8rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted)}
+  .form-group input,.form-group textarea{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:8px;padding:12px 16px;color:var(--text-primary);font-family:var(--font-body);font-size:.95rem;transition:border-color .2s}
+  .form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--gold)}
+  .form-group textarea{resize:vertical}
+  .contact-info{display:flex;flex-direction:column;gap:var(--space-lg)}
+  .info-card{background:var(--dark-card);border:1px solid var(--dark-border);border-radius:12px;padding:var(--space-xl)}
+  .info-card h3{font-family:var(--font-heading);font-size:1.1rem;margin-bottom:var(--space-md);color:var(--gold)}
+  .info-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
+  .info-item:last-child{margin-bottom:0}
+  .info-icon{font-size:1.2rem}
+  .info-label{display:block;font-size:.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:2px}
+  .info-item a,.info-item span{font-size:.95rem;color:var(--text-secondary)}
+  .info-item a:hover{color:var(--gold)}
+  .info-card p{color:var(--text-secondary);line-height:1.7;font-size:.95rem}
+  .info-card .muted{color:var(--text-muted);font-size:.85rem;margin-top:8px}
+  .lang-badges{display:flex;gap:8px;flex-wrap:wrap}
+  .lang-badge{padding:6px 16px;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.15);border-radius:100px;font-size:.8rem;color:var(--gold);font-weight:500}
+  @media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
 </style>
