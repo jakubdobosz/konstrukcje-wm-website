@@ -1,0 +1,61 @@
+---
+import { t } from '../i18n/translations';
+import type { Lang } from '../i18n/translations';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  subtitle?: string;
+}
+
+const { lang, title, subtitle } = Astro.props;
+const base = '/konstrukcje-wm-website';
+const contactPath = lang === 'pl' ? '/kontakt' : lang === 'en' ? '/en/contact' : '/de/kontakt';
+---
+
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-box">
+      <div class="cta-content">
+        <h2>{title || t(lang, 'cta.title')}</h2>
+        <p>{subtitle || t(lang, 'cta.subtitle')}</p>
+      </div>
+      <a href={`${base}${contactPath}`} class="btn btn-accent">{t(lang, 'cta.button')} →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    padding: var(--space-4xl) 0;
+  }
+
+  .cta-box {
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, rgba(59, 130, 246, 0.1) 100%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-3xl);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xl);
+  }
+
+  .cta-content h2 {
+    font-size: 1.75rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-content p {
+    color: var(--color-text-secondary);
+    font-size: 1.05rem;
+  }
+
+  @media (max-width: 768px) {
+    .cta-box {
+      flex-direction: column;
+      text-align: center;
+      padding: var(--space-xl);
+    }
+  }
+</style>

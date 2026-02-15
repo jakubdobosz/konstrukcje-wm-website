@@ -1,0 +1,54 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import CTA from '../../../components/CTA.astro';
+import { t } from '../../../i18n/translations';
+import { projects } from '../../../i18n/projects';
+
+export function getStaticPaths() {
+  return projects.map(project => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const lang = 'en';
+const base = '/konstrukcje-wm-website';
+const data = project.data[lang];
+---
+
+<Layout title={data.name} lang={lang}>
+  <section class="project-hero"><div class="container">
+    <a href={`${base}/en/projects`} class="back-link">{t(lang, 'projects.back')}</a>
+    <div class="project-hero-content"><div><span class="project-badge">{project.flag} {project.country}</span><h1>{data.name}</h1><p class="project-type">{data.type}</p></div>
+      <div class="project-stats-bar">{data.stats.map(stat => (<div class="stat-item"><span class="stat-val">{stat.value}</span><span class="stat-lbl">{stat.label}</span></div>))}</div>
+    </div>
+  </div></section>
+
+  <section class="gallery-section"><div class="container">
+    <div class="gallery-main"><img id="main-image" src={`${base}/images/projects/${project.images[0]}`} alt={data.name} /></div>
+    <div class="gallery-thumbs">{project.images.map((img, i) => (<button class:list={['thumb', { active: i === 0 }]} data-src={`${base}/images/projects/${img}`}><img src={`${base}/images/projects/${img}`} alt={`${data.name} ${i + 1}`} loading="lazy" /></button>))}</div>
+  </div></section>
+
+  <section class="section"><div class="container case-study">
+    <div class="case-item observe"><div class="case-icon">⚡</div><h2>{t(lang, 'projects.challenge')}</h2><p>{data.challenge}</p></div>
+    <div class="case-item observe"><div class="case-icon">🔧</div><h2>{t(lang, 'projects.approach')}</h2><p>{data.approach}</p></div>
+    <div class="case-item observe"><div class="case-icon">✅</div><h2>{t(lang, 'projects.result')}</h2><p>{data.result}</p></div>
+  </div></section>
+
+  <section class="scope-section"><div class="container"><h2>{t(lang, 'projects.scope')}</h2>
+    <div class="scope-grid">{data.scope.map(item => (<div class="scope-item observe"><span class="scope-check">✓</span><span>{item}</span></div>))}</div>
+  </div></section>
+
+  <CTA lang={lang} />
+</Layout>
+
+<script>
+  document.querySelectorAll('.thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const mainImage = document.getElementById('main-image') as HTMLImageElement;
+      if (mainImage && thumb.dataset.src) {
+        mainImage.src = thumb.dataset.src;
+        document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+      }
+    });
+  });
+</script>

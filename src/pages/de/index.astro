@@ -1,0 +1,98 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTA from '../../components/CTA.astro';
+import { t } from '../../i18n/translations';
+
+const lang = 'de';
+const base = '/konstrukcje-wm-website';
+
+const services = [
+  { key: 'prefab', icon: '🏗️', path: '/de/leistungen/fertigteile' },
+  { key: 'rc', icon: '🏢', path: '/de/leistungen/stahlbeton' },
+  { key: 'prestressed', icon: '⚡', path: '/de/leistungen/spannbeton' },
+  { key: 'optimization', icon: '📐', path: '/de/leistungen/optimierung' },
+];
+
+const projects = [
+  { slug: 'kv-babord-malmo', name: 'Kv Babord, Malmö', country: 'SWE', image: 'babord/B1.jpg', area: '12.390 m²', type: 'Wohngebäude' },
+  { slug: 'ikea-kopenhaga', name: 'IKEA, Kopenhagen', country: 'DK', image: 'ikea/I1.jpg', area: '3.595 m²', type: 'Einkaufszentrum' },
+  { slug: 'formee-miedzyrzecz', name: 'Formee, Międzyrzecz', country: 'PL', image: 'formee/F1.jpg', area: '6.656 m²', type: 'Produktionshalle' },
+  { slug: 'sokolka-zielenisz-gdynia', name: 'Sokółka Zielenisz, Gdynia', country: 'PL', image: 'sokolka/H1.jpg', area: '26.086 m²', type: 'Wohnkomplex' },
+];
+---
+
+<Layout title="Planung von Fertigteilkonstruktionen" lang={lang}>
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <div class="hero-text">
+        <p class="hero-badge">Konstrukcje WM — Ingenieurbüro für Konstruktionen</p>
+        <h1>{t(lang, 'hero.title')} <span class="highlight">{t(lang, 'hero.titleHighlight')}</span></h1>
+        <p class="hero-subtitle">{t(lang, 'hero.subtitle')}</p>
+        <p class="hero-desc">{t(lang, 'hero.description')}</p>
+        <div class="hero-buttons">
+          <a href={`${base}/de/kontakt`} class="btn btn-accent">{t(lang, 'hero.cta')} →</a>
+          <a href={`${base}/de/projekte`} class="btn btn-secondary">{t(lang, 'hero.ctaSecondary')}</a>
+        </div>
+      </div>
+      <div class="hero-visual"><img src={`${base}/images/projects/ikea/I1.jpg`} alt="IKEA Kopenhagen" loading="eager" /></div>
+    </div>
+  </section>
+
+  <section class="numbers"><div class="container numbers-grid">
+    <div class="number-item observe"><span class="number-value">4</span><span class="number-label">{t(lang, 'numbers.countries')}</span></div>
+    <div class="number-item observe"><span class="number-value">50+</span><span class="number-label">{t(lang, 'numbers.projects')}</span></div>
+    <div class="number-item observe"><span class="number-value">100.000+</span><span class="number-label">{t(lang, 'numbers.area')}</span></div>
+    <div class="number-item observe"><span class="number-value">3</span><span class="number-label">{t(lang, 'numbers.languages')}</span></div>
+  </div></section>
+
+  <section class="ps-section section"><div class="container">
+    <div class="section-header"><h2>{t(lang, 'ps.title')}</h2></div>
+    <div class="ps-grid">
+      <div class="ps-card ps-problem observe"><div class="ps-icon">⚠️</div><h3>{t(lang, 'ps.problem.title')}</h3>
+        <ul><li>{t(lang, 'ps.problem.1')}</li><li>{t(lang, 'ps.problem.2')}</li><li>{t(lang, 'ps.problem.3')}</li><li>{t(lang, 'ps.problem.4')}</li></ul></div>
+      <div class="ps-arrow observe">→</div>
+      <div class="ps-card ps-solution observe"><div class="ps-icon">✅</div><h3>{t(lang, 'ps.solution.title')}</h3>
+        <ul><li>{t(lang, 'ps.solution.1')}</li><li>{t(lang, 'ps.solution.2')}</li><li>{t(lang, 'ps.solution.3')}</li><li>{t(lang, 'ps.solution.4')}</li></ul></div>
+    </div>
+  </div></section>
+
+  <section class="section" id="leistungen"><div class="container">
+    <div class="section-header"><h2>{t(lang, 'services.title')}</h2><p>{t(lang, 'services.subtitle')}</p></div>
+    <div class="grid-2">
+      {services.map(service => (
+        <a href={`${base}${service.path}`} class="card service-card observe">
+          <span class="service-icon">{service.icon}</span><h3>{t(lang, `services.${service.key}.title`)}</h3>
+          <p>{t(lang, `services.${service.key}.desc`)}</p><span class="service-link">{t(lang, 'services.learnMore')} →</span>
+        </a>
+      ))}
+    </div>
+  </div></section>
+
+  <section class="usp-section section"><div class="container">
+    <div class="section-header"><h2>Warum <span class="highlight">Konstrukcje WM</span>?</h2></div>
+    <div class="grid-3">
+      <div class="usp-item observe"><span class="usp-icon">🌍</span><h4>Internationale Erfahrung</h4><p>Projekte in Polen, Schweden, Dänemark und Deutschland.</p></div>
+      <div class="usp-item observe"><span class="usp-icon">⚙️</span><h4>Automatische Produktionsdateien</h4><p>.pxml- und .uni-Dateien für moderne automatische Produktionslinien.</p></div>
+      <div class="usp-item observe"><span class="usp-icon">📊</span><h4>BIM vom ersten Tag</h4><p>3D-Modelle mit allen Informationen für jede Investitionsphase.</p></div>
+      <div class="usp-item observe"><span class="usp-icon">📝</span><h4>Dokumentation in 3 Sprachen</h4><p>Polnisch, Englisch und Deutsch — keine Barrieren bei internationalen Projekten.</p></div>
+      <div class="usp-item observe"><span class="usp-icon">🔄</span><h4>Monolith → Fertigteil</h4><p>Umwandlung monolithischer in Fertigteilkonstruktionen — gleich effektiv, schneller, günstiger.</p></div>
+      <div class="usp-item observe"><span class="usp-icon">🏭</span><h4>Komplette Dokumentation</h4><p>Von technisch bis Werkstattplanung — Komplettpaket für Investoren, Architekten und Werke.</p></div>
+    </div>
+  </div></section>
+
+  <section class="section projects-section"><div class="container">
+    <div class="section-header"><h2>{t(lang, 'projects.title')}</h2><p>{t(lang, 'projects.subtitle')}</p></div>
+    <div class="grid-2">
+      {projects.map(project => (
+        <a href={`${base}/de/projekte/${project.slug}`} class="project-card observe">
+          <div class="project-image"><img src={`${base}/images/projects/${project.image}`} alt={project.name} loading="lazy" /><span class="project-country">{project.country}</span></div>
+          <div class="project-info"><h3>{project.name}</h3><div class="project-meta"><span>{project.type}</span><span class="project-area">{project.area}</span></div></div>
+        </a>
+      ))}
+    </div>
+    <div class="projects-cta"><a href={`${base}/de/projekte`} class="btn btn-secondary">{t(lang, 'projects.seeAll')} →</a></div>
+  </div></section>
+
+  <CTA lang={lang} />
+</Layout>

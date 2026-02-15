@@ -1,0 +1,293 @@
+---
+import CTA from './CTA.astro';
+import { t } from '../i18n/translations';
+import { projects } from '../i18n/projects';
+import type { Lang } from '../i18n/translations';
+import type { ServiceData } from '../i18n/services';
+
+interface Props {
+  lang: Lang;
+  service: ServiceData;
+}
+
+const { lang, service } = Astro.props;
+const base = '/konstrukcje-wm-website';
+const data = service.data[lang];
+
+const servicesPath = lang === 'pl' ? '/uslugi/prefabrykacja' : lang === 'en' ? '/en/services/precast' : '/de/leistungen/fertigteile';
+
+const relatedProjects = data.relatedProjects
+  .map(slug => projects.find(p => p.slug === slug))
+  .filter(Boolean);
+---
+
+<!-- Hero -->
+<section class="service-hero">
+  <div class="container">
+    <a href={`${base}${lang === 'pl' ? '/#uslugi' : lang === 'en' ? '/en/#services' : '/de/#leistungen'}`} class="back-link">{t(lang, 'service.back')}</a>
+    <span class="service-icon">{service.icon}</span>
+    <h1>{data.title}</h1>
+    <p class="hero-desc">{data.hero}</p>
+    <a href={`${base}${lang === 'pl' ? '/kontakt' : lang === 'en' ? '/en/contact' : '/de/kontakt'}`} class="btn btn-accent">{t(lang, 'cta.button')} →</a>
+  </div>
+</section>
+
+<!-- Description -->
+<section class="section">
+  <div class="container desc-section">
+    <p class="description">{data.description}</p>
+  </div>
+</section>
+
+<!-- Clients -->
+<section class="section clients-section">
+  <div class="container">
+    <h2>{t(lang, 'service.clients')}</h2>
+    <div class="grid-3">
+      {data.clients.map(client => (
+        <div class="card client-card observe">
+          <h3>{client.title}</h3>
+          <p>{client.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Scope -->
+<section class="section scope-section">
+  <div class="container">
+    <h2>{t(lang, 'service.scope')}</h2>
+    <div class="scope-list">
+      {data.scope.map(item => (
+        <div class="scope-item observe">
+          <span class="check">✓</span>
+          <span>{item}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="section process-section">
+  <div class="container">
+    <h2>{t(lang, 'service.process')}</h2>
+    <div class="process-grid">
+      {data.process.map((step, i) => (
+        <div class="process-step observe">
+          <div class="step-number">{i + 1}</div>
+          <h3>{step.step}</h3>
+          <p>{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Related Projects -->
+{relatedProjects.length > 0 && (
+  <section class="section related-section">
+    <div class="container">
+      <h2>{t(lang, 'service.relatedProjects')}</h2>
+      <div class="grid-2">
+        {relatedProjects.map(project => {
+          if (!project) return null;
+          const pData = project.data[lang];
+          const projectPath = lang === 'pl' ? `/realizacje/${project.slug}` : lang === 'en' ? `/en/projects/${project.slug}` : `/de/projekte/${project.slug}`;
+          return (
+            <a href={`${base}${projectPath}`} class="related-card observe">
+              <img src={`${base}/images/projects/${project.images[0]}`} alt={pData.name} loading="lazy" />
+              <div class="related-info">
+                <h4>{pData.name}</h4>
+                <span>{project.flag} {project.country}</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+)}
+
+<CTA lang={lang} title={t(lang, 'service.ctaTitle')} subtitle={t(lang, 'service.ctaDesc')} />
+
+<style>
+  .service-hero {
+    padding: calc(72px + var(--space-3xl)) 0 var(--space-3xl);
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-bottom: var(--space-xl);
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: var(--color-primary-light);
+  }
+
+  .service-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .service-hero h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-desc {
+    color: var(--color-text-secondary);
+    font-size: 1.15rem;
+    max-width: 700px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .desc-section {
+    max-width: var(--container-narrow);
+    margin: 0 auto;
+  }
+
+  .description {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    text-align: center;
+  }
+
+  .clients-section {
+    background: var(--color-bg-secondary);
+  }
+
+  .clients-section h2, .scope-section h2, .process-section h2, .related-section h2 {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .client-card h3 {
+    margin-bottom: var(--space-sm);
+    color: var(--color-primary-light);
+  }
+
+  .client-card p {
+    color: var(--color-text-secondary);
+  }
+
+  .scope-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .scope-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .check {
+    color: var(--color-success);
+    font-weight: bold;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .process-section {
+    background: var(--color-bg-secondary);
+  }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .process-step {
+    text-align: center;
+    padding: var(--space-xl);
+  }
+
+  .step-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: white;
+    font-weight: 800;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-md);
+  }
+
+  .process-step h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .process-step p {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .related-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: all var(--transition-base);
+  }
+
+  .related-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    color: var(--color-text);
+  }
+
+  .related-card img {
+    width: 160px;
+    height: 120px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .related-info h4 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .related-info span {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 768px) {
+    .process-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .related-card {
+      flex-direction: column;
+    }
+
+    .related-card img {
+      width: 100%;
+      height: 160px;
+    }
+  }
+</style>

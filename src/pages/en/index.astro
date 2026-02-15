@@ -1,0 +1,133 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTA from '../../components/CTA.astro';
+import { t } from '../../i18n/translations';
+
+const lang = 'en';
+const base = '/konstrukcje-wm-website';
+
+const services = [
+  { key: 'prefab', icon: '🏗️', path: '/en/services/precast' },
+  { key: 'rc', icon: '🏢', path: '/en/services/reinforced-concrete' },
+  { key: 'prestressed', icon: '⚡', path: '/en/services/prestressed' },
+  { key: 'optimization', icon: '📐', path: '/en/services/optimization' },
+];
+
+const projects = [
+  { slug: 'kv-babord-malmo', name: 'Kv Babord, Malmö', country: 'SWE', image: 'babord/B1.jpg', area: '12,390 m²', type: 'Residential building' },
+  { slug: 'ikea-kopenhaga', name: 'IKEA, Copenhagen', country: 'DK', image: 'ikea/I1.jpg', area: '3,595 m²', type: 'Commercial building' },
+  { slug: 'formee-miedzyrzecz', name: 'Formee, Międzyrzecz', country: 'PL', image: 'formee/F1.jpg', area: '6,656 m²', type: 'Production hall' },
+  { slug: 'sokolka-zielenisz-gdynia', name: 'Sokółka Zielenisz, Gdynia', country: 'PL', image: 'sokolka/H1.jpg', area: '26,086 m²', type: 'Residential complex' },
+];
+---
+
+<Layout title="Precast concrete structure design" lang={lang}>
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <div class="hero-text">
+        <p class="hero-badge">Konstrukcje WM — Structural Design Office</p>
+        <h1>
+          {t(lang, 'hero.title')}
+          <span class="highlight">{t(lang, 'hero.titleHighlight')}</span>
+        </h1>
+        <p class="hero-subtitle">{t(lang, 'hero.subtitle')}</p>
+        <p class="hero-desc">{t(lang, 'hero.description')}</p>
+        <div class="hero-buttons">
+          <a href={`${base}/en/contact`} class="btn btn-accent">{t(lang, 'hero.cta')} →</a>
+          <a href={`${base}/en/projects`} class="btn btn-secondary">{t(lang, 'hero.ctaSecondary')}</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src={`${base}/images/projects/ikea/I1.jpg`} alt="IKEA Copenhagen — Konstrukcje WM project" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <section class="numbers">
+    <div class="container numbers-grid">
+      <div class="number-item observe"><span class="number-value">4</span><span class="number-label">{t(lang, 'numbers.countries')}</span></div>
+      <div class="number-item observe"><span class="number-value">50+</span><span class="number-label">{t(lang, 'numbers.projects')}</span></div>
+      <div class="number-item observe"><span class="number-value">100,000+</span><span class="number-label">{t(lang, 'numbers.area')}</span></div>
+      <div class="number-item observe"><span class="number-value">3</span><span class="number-label">{t(lang, 'numbers.languages')}</span></div>
+    </div>
+  </section>
+
+  <section class="ps-section section">
+    <div class="container">
+      <div class="section-header"><h2>{t(lang, 'ps.title')}</h2></div>
+      <div class="ps-grid">
+        <div class="ps-card ps-problem observe">
+          <div class="ps-icon">⚠️</div>
+          <h3>{t(lang, 'ps.problem.title')}</h3>
+          <ul>
+            <li>{t(lang, 'ps.problem.1')}</li><li>{t(lang, 'ps.problem.2')}</li>
+            <li>{t(lang, 'ps.problem.3')}</li><li>{t(lang, 'ps.problem.4')}</li>
+          </ul>
+        </div>
+        <div class="ps-arrow observe">→</div>
+        <div class="ps-card ps-solution observe">
+          <div class="ps-icon">✅</div>
+          <h3>{t(lang, 'ps.solution.title')}</h3>
+          <ul>
+            <li>{t(lang, 'ps.solution.1')}</li><li>{t(lang, 'ps.solution.2')}</li>
+            <li>{t(lang, 'ps.solution.3')}</li><li>{t(lang, 'ps.solution.4')}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-header"><h2>{t(lang, 'services.title')}</h2><p>{t(lang, 'services.subtitle')}</p></div>
+      <div class="grid-2">
+        {services.map(service => (
+          <a href={`${base}${service.path}`} class="card service-card observe">
+            <span class="service-icon">{service.icon}</span>
+            <h3>{t(lang, `services.${service.key}.title`)}</h3>
+            <p>{t(lang, `services.${service.key}.desc`)}</p>
+            <span class="service-link">{t(lang, 'services.learnMore')} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="usp-section section">
+    <div class="container">
+      <div class="section-header"><h2>Why <span class="highlight">Konstrukcje WM</span>?</h2></div>
+      <div class="grid-3">
+        <div class="usp-item observe"><span class="usp-icon">🌍</span><h4>International Experience</h4><p>Projects in Poland, Sweden, Denmark and Germany. We know each market and EC country-specific annexes.</p></div>
+        <div class="usp-item observe"><span class="usp-icon">⚙️</span><h4>Automated Production Files</h4><p>We generate .pxml and .uni files ready for modern automated precast production lines.</p></div>
+        <div class="usp-item observe"><span class="usp-icon">📊</span><h4>BIM From Day One</h4><p>We work in BIM — 3D models with full information at every investment stage. Seamless multi-discipline collaboration.</p></div>
+        <div class="usp-item observe"><span class="usp-icon">📝</span><h4>3-Language Documentation</h4><p>We prepare documentation in Polish, English and German — zero barriers in international projects.</p></div>
+        <div class="usp-item observe"><span class="usp-icon">🔄</span><h4>Monolithic → Precast</h4><p>We convert monolithic structures to precast — equally effective but faster and cheaper to build.</p></div>
+        <div class="usp-item observe"><span class="usp-icon">🏭</span><h4>Complete Documentation</h4><p>From technical to workshop designs — full package for investors, architects and factories.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section projects-section">
+    <div class="container">
+      <div class="section-header"><h2>{t(lang, 'projects.title')}</h2><p>{t(lang, 'projects.subtitle')}</p></div>
+      <div class="grid-2">
+        {projects.map(project => (
+          <a href={`${base}/en/projects/${project.slug}`} class="project-card observe">
+            <div class="project-image">
+              <img src={`${base}/images/projects/${project.image}`} alt={project.name} loading="lazy" />
+              <span class="project-country">{project.country}</span>
+            </div>
+            <div class="project-info">
+              <h3>{project.name}</h3>
+              <div class="project-meta"><span>{project.type}</span><span class="project-area">{project.area}</span></div>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="projects-cta"><a href={`${base}/en/projects`} class="btn btn-secondary">{t(lang, 'projects.seeAll')} →</a></div>
+    </div>
+  </section>
+
+  <CTA lang={lang} />
+</Layout>

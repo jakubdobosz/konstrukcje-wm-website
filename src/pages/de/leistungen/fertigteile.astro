@@ -1,0 +1,9 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ServicePage from '../../../components/ServicePage.astro';
+import { services } from '../../../i18n/services';
+const lang = 'de'; const service = services[0];
+---
+<Layout title={service.data[lang].title} lang={lang}>
+  <ServicePage lang={lang} service={service} />
+</Layout>

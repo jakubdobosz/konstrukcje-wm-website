@@ -1,0 +1,534 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTA from '../components/CTA.astro';
+import { t } from '../i18n/translations';
+
+const lang = 'pl';
+const base = '/konstrukcje-wm-website';
+
+const services = [
+  { key: 'prefab', icon: '🏗️', path: '/uslugi/prefabrykacja' },
+  { key: 'rc', icon: '🏢', path: '/uslugi/konstrukcje-zelbetowe' },
+  { key: 'prestressed', icon: '⚡', path: '/uslugi/sprezone' },
+  { key: 'optimization', icon: '📐', path: '/uslugi/optymalizacja' },
+];
+
+const projects = [
+  { slug: 'kv-babord-malmo', name: 'Kv Babord, Malmö', country: 'SWE', image: 'babord/B1.jpg', area: '12 390 m²', type: 'Budynek mieszkalny' },
+  { slug: 'ikea-kopenhaga', name: 'IKEA, Kopenhaga', country: 'DK', image: 'ikea/I1.jpg', area: '3 595 m²', type: 'Budynek handlowy' },
+  { slug: 'formee-miedzyrzecz', name: 'Formee, Międzyrzecz', country: 'PL', image: 'formee/F1.jpg', area: '6 656 m²', type: 'Hala produkcyjna' },
+  { slug: 'sokolka-zielenisz-gdynia', name: 'Sokółka Zielenisz, Gdynia', country: 'PL', image: 'sokolka/H1.jpg', area: '26 086 m²', type: 'Zespół mieszkalny' },
+];
+---
+
+<Layout title="Projektowanie konstrukcji prefabrykowanych" lang={lang}>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <div class="hero-text">
+        <p class="hero-badge">Pracownia Projektowa Konstrukcje WM</p>
+        <h1>
+          {t(lang, 'hero.title')}
+          <span class="highlight">{t(lang, 'hero.titleHighlight')}</span>
+        </h1>
+        <p class="hero-subtitle">{t(lang, 'hero.subtitle')}</p>
+        <p class="hero-desc">{t(lang, 'hero.description')}</p>
+        <div class="hero-buttons">
+          <a href={`${base}/kontakt`} class="btn btn-accent">{t(lang, 'hero.cta')} →</a>
+          <a href={`${base}/realizacje`} class="btn btn-secondary">{t(lang, 'hero.ctaSecondary')}</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src={`${base}/images/projects/ikea/I1.jpg`} alt="IKEA Kopenhaga — projekt Konstrukcje WM" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMBERS BAR -->
+  <section class="numbers">
+    <div class="container numbers-grid">
+      <div class="number-item observe">
+        <span class="number-value">4</span>
+        <span class="number-label">{t(lang, 'numbers.countries')}</span>
+      </div>
+      <div class="number-item observe">
+        <span class="number-value">50+</span>
+        <span class="number-label">{t(lang, 'numbers.projects')}</span>
+      </div>
+      <div class="number-item observe">
+        <span class="number-value">100 000+</span>
+        <span class="number-label">{t(lang, 'numbers.area')}</span>
+      </div>
+      <div class="number-item observe">
+        <span class="number-value">3</span>
+        <span class="number-label">{t(lang, 'numbers.languages')}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM → SOLUTION -->
+  <section class="ps-section section">
+    <div class="container">
+      <div class="section-header">
+        <h2>{t(lang, 'ps.title')}</h2>
+      </div>
+      <div class="ps-grid">
+        <div class="ps-card ps-problem observe">
+          <div class="ps-icon">⚠️</div>
+          <h3>{t(lang, 'ps.problem.title')}</h3>
+          <ul>
+            <li>{t(lang, 'ps.problem.1')}</li>
+            <li>{t(lang, 'ps.problem.2')}</li>
+            <li>{t(lang, 'ps.problem.3')}</li>
+            <li>{t(lang, 'ps.problem.4')}</li>
+          </ul>
+        </div>
+        <div class="ps-arrow observe">→</div>
+        <div class="ps-card ps-solution observe">
+          <div class="ps-icon">✅</div>
+          <h3>{t(lang, 'ps.solution.title')}</h3>
+          <ul>
+            <li>{t(lang, 'ps.solution.1')}</li>
+            <li>{t(lang, 'ps.solution.2')}</li>
+            <li>{t(lang, 'ps.solution.3')}</li>
+            <li>{t(lang, 'ps.solution.4')}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="uslugi">
+    <div class="container">
+      <div class="section-header">
+        <h2>{t(lang, 'services.title')}</h2>
+        <p>{t(lang, 'services.subtitle')}</p>
+      </div>
+      <div class="grid-2">
+        {services.map(service => (
+          <a href={`${base}${service.path}`} class="card service-card observe">
+            <span class="service-icon">{service.icon}</span>
+            <h3>{t(lang, `services.${service.key}.title`)}</h3>
+            <p>{t(lang, `services.${service.key}.desc`)}</p>
+            <span class="service-link">{t(lang, 'services.learnMore')} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- USP SECTION -->
+  <section class="usp-section section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Dlaczego <span class="highlight">Konstrukcje WM</span>?</h2>
+      </div>
+      <div class="grid-3">
+        <div class="usp-item observe">
+          <span class="usp-icon">🌍</span>
+          <h4>Doświadczenie międzynarodowe</h4>
+          <p>Projekty w Polsce, Szwecji, Danii i Niemczech. Znamy specyfikę rynków i normy EC każdego kraju.</p>
+        </div>
+        <div class="usp-item observe">
+          <span class="usp-icon">⚙️</span>
+          <h4>Pliki pod automatyczne linie</h4>
+          <p>Generujemy pliki .pxml i .uni gotowe pod nowoczesne linie produkcyjne prefabrykatów.</p>
+        </div>
+        <div class="usp-item observe">
+          <span class="usp-icon">📊</span>
+          <h4>BIM od dnia pierwszego</h4>
+          <p>Pracujemy w BIM — modele 3D z pełną informacją na każdym etapie inwestycji. Płynna współpraca międzybranżowa.</p>
+        </div>
+        <div class="usp-item observe">
+          <span class="usp-icon">📝</span>
+          <h4>Dokumentacja w 3 językach</h4>
+          <p>Przygotowujemy dokumentację w języku polskim, angielskim i niemieckim — zero barier w projektach międzynarodowych.</p>
+        </div>
+        <div class="usp-item observe">
+          <span class="usp-icon">🔄</span>
+          <h4>Konwersja monolit → prefab</h4>
+          <p>Zamieniamy konstrukcję monolityczną na prefabrykowaną — tak samo efektywną, ale szybszą i tańszą w realizacji.</p>
+        </div>
+        <div class="usp-item observe">
+          <span class="usp-icon">🏭</span>
+          <h4>Kompletna dokumentacja</h4>
+          <p>Od projektu technicznego po warsztatowy — dostarczamy pełen pakiet dla inwestorów, architektów i fabryk.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROJECTS -->
+  <section class="section projects-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>{t(lang, 'projects.title')}</h2>
+        <p>{t(lang, 'projects.subtitle')}</p>
+      </div>
+      <div class="grid-2">
+        {projects.map(project => (
+          <a href={`${base}/realizacje/${project.slug}`} class="project-card observe">
+            <div class="project-image">
+              <img src={`${base}/images/projects/${project.image}`} alt={project.name} loading="lazy" />
+              <span class="project-country">{project.country}</span>
+            </div>
+            <div class="project-info">
+              <h3>{project.name}</h3>
+              <div class="project-meta">
+                <span>{project.type}</span>
+                <span class="project-area">{project.area}</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="projects-cta">
+        <a href={`${base}/realizacje`} class="btn btn-secondary">{t(lang, 'projects.seeAll')} →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <CTA lang={lang} />
+
+</Layout>
+
+<style>
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 72px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse at 20% 80%, rgba(245, 158, 11, 0.05) 0%, transparent 60%);
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+    letter-spacing: 0.02em;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    margin-bottom: var(--space-md);
+    line-height: 1.15;
+  }
+
+  .hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary-light);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-desc {
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: var(--space-xl);
+    max-width: 540px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .hero-visual {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--color-border);
+  }
+
+  .hero-visual img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  }
+
+  /* NUMBERS */
+  .numbers {
+    background: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-xl) 0;
+  }
+
+  .numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    text-align: center;
+  }
+
+  .number-item {
+    padding: var(--space-md);
+  }
+
+  .number-value {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-primary-light);
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+  }
+
+  .number-label {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* PROBLEM-SOLUTION */
+  .ps-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-xl);
+    align-items: stretch;
+  }
+
+  .ps-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .ps-problem {
+    border-left: 4px solid var(--color-danger);
+  }
+
+  .ps-solution {
+    border-left: 4px solid var(--color-success);
+  }
+
+  .ps-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .ps-card h3 {
+    margin-bottom: var(--space-lg);
+    font-size: 1.25rem;
+  }
+
+  .ps-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .ps-card li {
+    color: var(--color-text-secondary);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .ps-problem li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--color-danger);
+    font-weight: bold;
+  }
+
+  .ps-solution li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: bold;
+  }
+
+  .ps-arrow {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    color: var(--color-primary);
+    font-weight: bold;
+  }
+
+  /* SERVICE CARDS */
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+  }
+
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .service-card h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .service-card p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+    flex: 1;
+  }
+
+  .service-link {
+    color: var(--color-primary-light);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  /* USP */
+  .usp-section {
+    background: var(--color-bg-secondary);
+  }
+
+  .usp-item {
+    text-align: center;
+    padding: var(--space-xl);
+  }
+
+  .usp-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .usp-item h4 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .usp-item p {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+  }
+
+  /* PROJECTS */
+  .project-card {
+    display: block;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-base);
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  .project-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    color: var(--color-text);
+  }
+
+  .project-image {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .project-card:hover .project-image img {
+    transform: scale(1.05);
+  }
+
+  .project-country {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    background: rgba(10, 14, 23, 0.8);
+    backdrop-filter: blur(8px);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-primary-light);
+    border: 1px solid var(--color-border);
+  }
+
+  .project-info {
+    padding: var(--space-lg);
+  }
+
+  .project-info h3 {
+    font-size: 1.15rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .project-meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+  }
+
+  .project-area {
+    font-weight: 600;
+    color: var(--color-primary-light);
+  }
+
+  .projects-cta {
+    text-align: center;
+    margin-top: var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      padding-top: var(--space-xl);
+    }
+
+    .hero-visual {
+      display: none;
+    }
+
+    .numbers-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ps-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ps-arrow {
+      display: none;
+    }
+  }
+</style>

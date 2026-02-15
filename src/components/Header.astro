@@ -1,0 +1,233 @@
+---
+import { t, languages, getLocalePath } from '../i18n/translations';
+import type { Lang } from '../i18n/translations';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const base = '/konstrukcje-wm-website';
+
+const servicesPath = lang === 'pl' ? '/uslugi/prefabrykacja' : lang === 'en' ? '/en/services/precast' : '/de/leistungen/fertigteile';
+const projectsPath = lang === 'pl' ? '/realizacje' : lang === 'en' ? '/en/projects' : '/de/projekte';
+const contactPath = lang === 'pl' ? '/kontakt' : lang === 'en' ? '/en/contact' : '/de/kontakt';
+const homePath = lang === 'pl' ? '/' : `/${lang}/`;
+---
+
+<header class="header">
+  <div class="container header-inner">
+    <a href={`${base}${homePath}`} class="logo">
+      <img src={`${base}/images/logo/WM_biale.png`} alt="Konstrukcje WM" width="48" height="48" />
+      <span class="logo-text">Konstrukcje<strong>WM</strong></span>
+    </a>
+
+    <nav class="nav" id="main-nav">
+      <a href={`${base}${homePath}`} class="nav-link">{t(lang, 'nav.home')}</a>
+      <a href={`${base}${servicesPath}`} class="nav-link">{t(lang, 'nav.services')}</a>
+      <a href={`${base}${projectsPath}`} class="nav-link">{t(lang, 'nav.projects')}</a>
+      <a href={`${base}${contactPath}`} class="nav-link">{t(lang, 'nav.contact')}</a>
+
+      <div class="lang-switcher">
+        {Object.entries(languages).map(([code, name]) => (
+          <a
+            href={`${base}${code === 'pl' ? '/' : `/${code}/`}`}
+            class:list={['lang-link', { active: code === lang }]}
+          >
+            {code.toUpperCase()}
+          </a>
+        ))}
+      </div>
+    </nav>
+
+    <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const nav = document.getElementById('main-nav');
+  toggle?.addEventListener('click', () => {
+    nav?.classList.toggle('is-open');
+    toggle.classList.toggle('is-open');
+  });
+</script>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(10, 14, 23, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-border);
+    transition: all var(--transition-base);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--color-text);
+    font-size: 1.1rem;
+    text-decoration: none;
+  }
+
+  .logo:hover {
+    color: var(--color-text);
+  }
+
+  .logo img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+
+  .logo-text {
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .logo-text strong {
+    font-weight: 800;
+    color: var(--color-primary-light);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .nav-link {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: var(--space-sm) 0;
+    position: relative;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    color: var(--color-text);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width var(--transition-base);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .lang-switcher {
+    display: flex;
+    gap: 2px;
+    margin-left: var(--space-md);
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 2px;
+  }
+
+  .lang-link {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .lang-link:hover {
+    color: var(--color-text);
+  }
+
+  .lang-link.active {
+    background: var(--color-primary);
+    color: white;
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-sm);
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text);
+    transition: all var(--transition-fast);
+  }
+
+  .menu-toggle.is-open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .menu-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.is-open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--color-bg);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xl);
+    }
+
+    .nav.is-open {
+      display: flex;
+    }
+
+    .nav-link {
+      font-size: 1.25rem;
+    }
+
+    .lang-switcher {
+      margin-left: 0;
+    }
+  }
+</style>

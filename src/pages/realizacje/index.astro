@@ -1,0 +1,171 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CTA from '../../components/CTA.astro';
+import { t } from '../../i18n/translations';
+import { projects } from '../../i18n/projects';
+
+const lang = 'pl';
+const base = '/konstrukcje-wm-website';
+---
+
+<Layout title="Realizacje" lang={lang}>
+  <section class="page-hero">
+    <div class="container">
+      <h1>{t(lang, 'projects.title')}</h1>
+      <p>{t(lang, 'projects.subtitle')}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="projects-grid">
+        {projects.map((project) => {
+          const data = project.data[lang];
+          return (
+            <a href={`${base}/realizacje/${project.slug}`} class="project-card observe">
+              <div class="project-image">
+                <img src={`${base}/images/projects/${project.images[0]}`} alt={data.name} loading="lazy" />
+                <span class="project-badge">{project.flag} {project.country}</span>
+              </div>
+              <div class="project-body">
+                <h3>{data.name}</h3>
+                <p class="project-type">{data.type}</p>
+                <div class="project-stats">
+                  {data.stats.slice(0, 2).map(stat => (
+                    <div class="stat">
+                      <span class="stat-value">{stat.value}</span>
+                      <span class="stat-label">{stat.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <span class="project-link">{t(lang, 'projects.seeDetails')} →</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <CTA lang={lang} />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: calc(72px + var(--space-4xl)) 0 var(--space-3xl);
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  .page-hero h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .page-hero p {
+    color: var(--color-text-secondary);
+    font-size: 1.15rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .project-card {
+    display: block;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: all var(--transition-base);
+  }
+
+  .project-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+    color: var(--color-text);
+  }
+
+  .project-image {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .project-card:hover .project-image img {
+    transform: scale(1.05);
+  }
+
+  .project-badge {
+    position: absolute;
+    top: var(--space-md);
+    left: var(--space-md);
+    background: rgba(10, 14, 23, 0.85);
+    backdrop-filter: blur(8px);
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+  }
+
+  .project-body {
+    padding: var(--space-lg);
+  }
+
+  .project-body h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .project-type {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .project-stats {
+    display: flex;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .stat-value {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary-light);
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .project-link {
+    color: var(--color-primary-light);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

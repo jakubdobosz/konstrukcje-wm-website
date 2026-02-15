@@ -1,0 +1,27 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import CTA from '../../../components/CTA.astro';
+import { t } from '../../../i18n/translations';
+import { projects } from '../../../i18n/projects';
+
+const lang = 'en';
+const base = '/konstrukcje-wm-website';
+---
+
+<Layout title="Projects" lang={lang}>
+  <section class="page-hero"><div class="container"><h1>{t(lang, 'projects.title')}</h1><p>{t(lang, 'projects.subtitle')}</p></div></section>
+  <section class="section"><div class="container"><div class="projects-grid">
+    {projects.map((project) => {
+      const data = project.data[lang];
+      return (
+        <a href={`${base}/en/projects/${project.slug}`} class="project-card observe">
+          <div class="project-image"><img src={`${base}/images/projects/${project.images[0]}`} alt={data.name} loading="lazy" /><span class="project-badge">{project.flag} {project.country}</span></div>
+          <div class="project-body"><h3>{data.name}</h3><p class="project-type">{data.type}</p>
+            <div class="project-stats">{data.stats.slice(0, 2).map(stat => (<div class="stat"><span class="stat-value">{stat.value}</span><span class="stat-label">{stat.label}</span></div>))}</div>
+            <span class="project-link">{t(lang, 'projects.seeDetails')} →</span></div>
+        </a>
+      );
+    })}
+  </div></div></section>
+  <CTA lang={lang} />
+</Layout>
